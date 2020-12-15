@@ -1,19 +1,37 @@
+print("Welcome to BoustanyX YouTube Downloader")
+
 import pytube
+import youtube_downloader
 
-video_list = []
+print('''
+What do you want?
 
-print('Enter the Urls (When finish type STOP ...)')
-while True:
-    url = input("")
-    if url == "stop":
-        break
-    video_list.append(url)
+(1) Download YouTube Videos Manually
+(2) Download a YouTube Playlist
 
-for x, video in enumerate(video_list):
-    v = pytube.YouTube(video)
-    stream = v.streams.get_by_itag(140)
-    print(f'Downloading video {x}...')
-    stream.download()
-    print('Done')
+Downloading copyrighted YouTube videos is illegal!
+I am not responsible for your downloads! Go at your own risk!
+
+Copyright (c) NeuralNine 2020
+''')
+
+choice = input("Choice: ")
+
+if choice == "1" or choice == "2":
+    quality = input("Please choose a quality (low, medium, high, very high):")
+    if choice == "2":
+        link = input("Enter the link to the playlist: ")
+        print("Downloading playlist...")
+        youtube_downloader.download_playlist(link, quality)
+        print("Download finished!")
+    if choice == "1":
+        links = youtube_downloader.input_links()
+        for link in links:
+            youtube_downloader.download_video(link, quality)
+else:
+    print("Invalid input! Terminating...")
+
+
+
 
 
